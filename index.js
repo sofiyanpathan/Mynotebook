@@ -1,7 +1,7 @@
 const connectTomongo = require('./db');
 const express = require('express')
 var cors=require('cors')
-
+const path=require('path')
 connectTomongo();
 
 const app = express()
@@ -13,17 +13,21 @@ app.use(express.json())
 app.use('/api/auth',require('./routes/auth'))
 app.use('/api/notes',require('./routes/notes'))
 app.get('/',(req,res)=>{
-  res.send("Hi sofiyan here")
+  res.send("Hello sofiyan here")
 })
 
-if(process.env.NODE_ENV=='production'){
-  const path=require('path')
-  app.get('/',(req,res)=>{
-    app.use(express.static(path.resolve(__dirname,'frontend','build','index.html')))
-    res.sendFile(path.resolve(__dirname,'frontend','build','index.html'))
-  })
-}
+app.use(express.static(path.join(__dirname, "./frontend/build")));
+app.get("*", function (_, res) {
+  res.sendFile(
+    path.join(__dirname, "./frontend/build/index.html"),
+    function (err) {
+      res.status(500).send(err);
+    }
+  );
+});
 
 app.listen(port, () => {
   console.log(`Example app listening on port https://localhost:${port}`)
 })
+
+//"start": "concurrently \"cd frontend && npm start\" \"nodemon index.js\""
