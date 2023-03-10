@@ -9,7 +9,7 @@ function Signup(props) {
 
          e.preventDefault()
         //Api call
-        const response=await fetch("/api/auth",{
+        const response=await fetch("https://charming-hose-bee.cyclic.app/signup",{
           method:'POST',
           headers:{
             'content-Type':'application/json',

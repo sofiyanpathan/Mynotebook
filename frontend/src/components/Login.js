@@ -10,7 +10,7 @@ function Login(props) {
         
         
             //Api call
-            const response=await fetch("https://charming-hose-bee.cyclic.app/api/auth/login",{
+            const response=await fetch("https://charming-hose-bee.cyclic.app/login",{
               method:'POST',
               headers:{
                 'Content-Type':'application/json',
